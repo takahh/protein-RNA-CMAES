@@ -1,0 +1,53 @@
+##  Convergence Plot for Eval 3
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+evalnum = 2
+
+
+def plot(i):
+    path = f'/Users/mac/Desktop/t3_mnt/RNPopt/optimize/pi_plus_cmaes_log_{i}.txt'
+    figpath = f"/Users/mac/Desktop/t3_mnt/RNPopt/data/result/eval2/progress{i}.png"
+    df = pd.read_csv(path, sep=':', header=None)
+    figure = plt.figure()
+    axes = figure.add_axes([0.14, 0.12, 0.83, 0.81])
+    axes2 = figure.add_axes([0.4, 0.4, 0.52, 0.48])  # rested
+    x = np.arange(len(df))
+    axes.plot(x, df[0], 'b', linewidth=0.7, alpha=0.6, color="blue")
+    axes.set_xlabel('Step', fontsize=15)
+    axes.set_ylabel('Average Ranking', fontsize=18)
+    axes.tick_params(axis='both', which='major', labelsize=12)
+    if evalnum == 2:
+        axes.set_title(f'Evaluation {evalnum}', fontsize=18)
+    else:
+        axes.set_title(f'Evaluation {evalnum}', fontsize=18)
+
+    axes2.plot(x, df[0], 'r', linewidth=0.5, alpha=0.6, color="blue")
+    if i == 0:
+        axes2.set_ylim([1, 1.1])
+        axes2.set_xlim([3500, 4500])
+    elif i == 1:
+        axes2.set_ylim([1, 1.1])
+        axes2.set_xlim([2000, 2700])
+    elif i == 2:
+        axes2.set_ylim([1, 1.1])
+        axes2.set_xlim([3500, 4200])
+    elif i == 3:
+        axes2.set_ylim([1, 1.1])
+        axes2.set_xlim([4000, 4500])
+    else:
+        axes2.set_ylim([1, 1.1])
+        axes2.set_xlim([3500, 4500])
+    axes2.set_xlabel('Step', fontsize=15)
+    axes2.set_ylabel('Average Ranking', fontsize=14)
+    axes2.tick_params(axis='both', which='major', labelsize=12)
+
+    plt.savefig(f'{figpath}.png', dpi=400, bbox_inches='tight')
+    plt.show()
+
+
+if __name__ == '__main__':
+    for i in range(5):
+        plot(i)
